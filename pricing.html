@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing — PriceHawk</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23FF5C00'/><text y='78' x='50' text-anchor='middle' font-size='65'>🦅</text></svg>">
+  <meta name="description" content="PriceHawk is free to use. Upgrade to Premium for $4/month to unlock unlimited comparisons, price history, and alerts.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabinet+Grotesk:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --orange: #FF5C00; --orange-light: #FF7A2E; --orange-dim: #FF5C0015;
+      --black: #080809; --dark: #0F0F11; --card: #141417;
+      --border: #1E1E24; --border-light: #2A2A32;
+      --text: #F2F2F5; --text-secondary: #888899; --text-muted: #444455;
+      --green: #22C55E;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--text); font-family: 'Cabinet Grotesk', sans-serif; }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 60px; background: rgba(8,8,9,0.85);
+      backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-icon { width: 32px; height: 32px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+    .nav-logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1px; color: var(--text); }
+    .nav-logo-text span { color: var(--orange); }
+    .nav-back { color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-back:hover { color: var(--text); }
+    .hero { padding: 140px 40px 80px; text-align: center; }
+    .hero-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--orange); margin-bottom: 16px; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(52px, 8vw, 96px); line-height: 1; letter-spacing: 1px; margin-bottom: 16px; }
+    .hero-subtitle { font-size: 17px; color: var(--text-secondary); max-width: 440px; margin: 0 auto 60px; line-height: 1.6; }
+    .pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 740px; margin: 0 auto 80px; padding: 0 24px; }
+    .pricing-card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 40px; position: relative; }
+    .pricing-card.featured { border-color: var(--orange); background: linear-gradient(135deg, #FF5C000A, var(--card)); }
+    .pricing-card.featured::before { content: 'MOST POPULAR'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--orange); color: white; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; padding: 4px 14px; border-radius: 20px; white-space: nowrap; }
+    .pricing-tier { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-secondary); margin-bottom: 16px; }
+    .pricing-price { font-family: 'Bebas Neue', sans-serif; font-size: 72px; line-height: 1; letter-spacing: 1px; margin-bottom: 4px; }
+    .pricing-price sup { font-size: 32px; vertical-align: super; }
+    .pricing-period { font-size: 13px; color: var(--text-secondary); margin-bottom: 32px; }
+    .pricing-features { list-style: none; margin-bottom: 32px; }
+    .pricing-features li { font-size: 14px; color: var(--text-secondary); padding: 9px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+    .pricing-features li:last-child { border-bottom: none; }
+    .pricing-features li.active { color: var(--text); }
+    .pricing-features li .check { color: var(--green); }
+    .pricing-features li .cross { color: var(--text-muted); }
+    .btn-pricing { display: block; text-align: center; text-decoration: none; padding: 14px; border-radius: 10px; font-size: 15px; font-weight: 700; transition: all 0.2s; }
+    .btn-pricing.free { border: 1px solid var(--border-light); color: var(--text-secondary); }
+    .btn-pricing.free:hover { border-color: var(--text-muted); color: var(--text); }
+    .btn-pricing.premium { background: var(--orange); color: white; box-shadow: 0 6px 20px #FF5C0033; }
+    .btn-pricing.premium:hover { background: var(--orange-light); transform: translateY(-1px); }
+    .faq { max-width: 680px; margin: 0 auto; padding: 0 24px 100px; }
+    .faq-title { font-family: 'Bebas Neue', sans-serif; font-size: 48px; letter-spacing: 1px; text-align: center; margin-bottom: 40px; }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 24px 0; }
+    .faq-q { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+    .faq-a { font-size: 14px; color: var(--text-secondary); line-height: 1.7; }
+    footer { border-top: 1px solid var(--border); padding: 40px 60px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { text-decoration: none; color: var(--text-secondary); font-size: 13px; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--text); }
+    .footer-copy { font-size: 12px; color: var(--text-muted); }
+    @media (max-width: 640px) { nav { padding: 14px 24px; } .pricing-grid { grid-template-columns: 1fr; } footer { padding: 30px 24px; flex-direction: column; align-items: flex-start; } }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">🦅</div>
+      <span class="nav-logo-text">Price<span>Hawk</span></span>
+    </a>
+    <a href="index.html" class="nav-back">← Back to home</a>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-label">Pricing</div>
+    <h1 class="hero-title">Simple, honest pricing.</h1>
+    <p class="hero-subtitle">Start free with no credit card required. Upgrade to Premium anytime for $4/month.</p>
+  </div>
+
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="pricing-tier">Free</div>
+      <div class="pricing-price"><sup>$</sup>0</div>
+      <div class="pricing-period">forever, no credit card needed</div>
+      <ul class="pricing-features">
+        <li class="active"><span class="check">✓</span> 5 price comparisons per day</li>
+        <li class="active"><span class="check">✓</span> Amazon, eBay & Walmart</li>
+        <li class="active"><span class="check">✓</span> Price & shipping info</li>
+        <li class="active"><span class="check">✓</span> Star ratings & review counts</li>
+        <li class="active"><span class="check">✓</span> Direct links to products</li>
+        <li><span class="cross">✗</span> Price history charts</li>
+        <li><span class="cross">✗</span> Price drop alerts</li>
+        <li><span class="cross">✗</span> Extra retailers</li>
+        <li><span class="cross">✗</span> Unlimited comparisons</li>
+      </ul>
+      <a href="#" class="btn-pricing free">Add to Chrome — Free</a>
+    </div>
+    <div class="pricing-card featured">
+      <div class="pricing-tier">Premium</div>
+      <div class="pricing-price"><sup>$</sup>4</div>
+      <div class="pricing-period">per month, cancel anytime</div>
+      <ul class="pricing-features">
+        <li class="active"><span class="check">✓</span> Unlimited comparisons</li>
+        <li class="active"><span class="check">✓</span> All 6 retailers</li>
+        <li class="active"><span class="check">✓</span> Price & shipping info</li>
+        <li class="active"><span class="check">✓</span> Star ratings & review counts</li>
+        <li class="active"><span class="check">✓</span> Direct links to products</li>
+        <li class="active"><span class="check">✓</span> Price history charts</li>
+        <li class="active"><span class="check">✓</span> Price drop alerts</li>
+        <li class="active"><span class="check">✓</span> BestBuy, Target, Newegg, AliExpress <span style="font-size:10px;color:#888899;">(coming soon)</span></li>
+        <li class="active"><span class="check">✓</span> No upgrade prompts ever</li>
+      </ul>
+      <a href="#" class="btn-pricing premium">Get Premium — $4/month</a>
+    </div>
+  </div>
+
+  <div class="faq">
+    <div class="faq-title">Common Questions</div>
+    <div class="faq-item">
+      <div class="faq-q">Do I need an account to use PriceHawk?</div>
+      <div class="faq-a">No account is needed for the free tier. Just install the extension and start comparing prices. An account is only required when upgrading to Premium.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can I cancel my Premium subscription anytime?</div>
+      <div class="faq-a">Yes. You can cancel your subscription at any time from your account settings. You'll keep Premium access until the end of your current billing period.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What payment methods are accepted?</div>
+      <div class="faq-a">We accept all major credit and debit cards, as well as PayPal. Payments are securely processed by Paddle.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">How does the 5 searches per day limit work?</div>
+      <div class="faq-a">Free users can run 5 price comparisons per day. The count resets at midnight every day. If you need more, upgrading to Premium removes the limit entirely.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is my payment information secure?</div>
+      <div class="faq-a">Yes. We never store your payment details. All payments are handled by Paddle, a trusted payment processor used by thousands of software companies worldwide.</div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="nav-logo">
+      <div class="nav-logo-icon" style="width:26px;height:26px;font-size:14px;">🦅</div>
+      <span class="nav-logo-text" style="font-size:18px;">Price<span style="color:var(--orange);">Hawk</span></span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="terms.html">Terms of Service</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 PriceHawk. All rights reserved.</span>
+  </footer>
+</body>
+</html>

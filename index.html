@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PriceHawk — Compare Prices Instantly</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23FF5C00'/><text y='78' x='50' text-anchor='middle' font-size='65'>🦅</text></svg>">
+  <meta name="description" content="PriceHawk is a free browser extension that instantly compares prices across Amazon, eBay, and Walmart. Find the best deal in seconds.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabinet+Grotesk:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #FF5C00;
+      --orange-light: #FF7A2E;
+      --orange-dim: #FF5C0015;
+      --black: #080809;
+      --dark: #0F0F11;
+      --card: #141417;
+      --border: #1E1E24;
+      --border-light: #2A2A32;
+      --text: #F2F2F5;
+      --text-secondary: #888899;
+      --text-muted: #444455;
+      --green: #22C55E;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--text);
+      font-family: 'Cabinet Grotesk', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 60px;
+      background: rgba(8,8,9,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--orange);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      box-shadow: 0 0 20px #FF5C0044;
+    }
+
+    .nav-logo-text {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 1px;
+      color: var(--text);
+    }
+
+    .nav-logo-text span { color: var(--orange); }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--orange);
+      color: white !important;
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-weight: 700 !important;
+      transition: all 0.2s !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--orange-light) !important;
+      transform: translateY(-1px);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 40px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, #FF5C0018 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--orange-dim);
+      border: 1px solid #FF5C0030;
+      color: var(--orange);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 7px 16px;
+      border-radius: 20px;
+      margin-bottom: 32px;
+      animation: fadeUp 0.6s ease backwards;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(72px, 12vw, 140px);
+      line-height: 0.92;
+      letter-spacing: 2px;
+      color: var(--text);
+      margin-bottom: 28px;
+      animation: fadeUp 0.6s ease 0.1s backwards;
+    }
+
+    .hero-title span {
+      color: var(--orange);
+      display: block;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--text-secondary);
+      max-width: 560px;
+      line-height: 1.6;
+      margin-bottom: 44px;
+      font-weight: 400;
+      animation: fadeUp 0.6s ease 0.2s backwards;
+    }
+
+    .hero-buttons {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 64px;
+      animation: fadeUp 0.6s ease 0.3s backwards;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: var(--orange);
+      color: white;
+      text-decoration: none;
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      transition: all 0.2s;
+      box-shadow: 0 8px 30px #FF5C0033;
+    }
+
+    .btn-primary:hover {
+      background: var(--orange-light);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px #FF5C0044;
+    }
+
+    .btn-secondary {
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      border: 1px solid var(--border-light);
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      color: var(--text);
+      border-color: var(--text-muted);
+    }
+
+    /* ── MOCK EXTENSION UI ── */
+    .hero-visual {
+      width: 100%;
+      max-width: 420px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px #FF5C0015;
+      animation: fadeUp 0.6s ease 0.4s backwards;
+    }
+
+    .visual-header {
+      background: #0F0F12;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .visual-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 16px;
+      letter-spacing: 0.5px;
+    }
+
+    .visual-logo span { color: var(--orange); }
+
+    .visual-product {
+      padding: 12px 16px;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .visual-thumb {
+      width: 44px;
+      height: 44px;
+      background: #1A1A22;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .visual-product-name {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .visual-product-meta {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    .visual-results { padding: 10px 12px 14px; }
+
+    .visual-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      padding: 0 4px;
+    }
+
+    .visual-card {
+      background: #0F0F12;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 11px 13px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .visual-card.best {
+      border-color: var(--orange);
+      background: linear-gradient(135deg, #FF5C0008, #0F0F12);
+    }
+
+    .visual-card.best::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--orange);
+    }
+
+    .visual-retailer {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .visual-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .visual-dot.amazon { background: #FF9900; }
+    .visual-dot.ebay { background: #E53238; }
+    .visual-dot.walmart { background: #0071CE; }
+
+    .visual-retailer-name {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .visual-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .visual-badge {
+      font-size: 9px;
+      font-weight: 700;
+      background: #FF5C0020;
+      color: var(--orange);
+      padding: 2px 7px;
+      border-radius: 20px;
+      margin-left: 6px;
+    }
+
+    /* ── STATS ── */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      padding: 60px 40px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .stat { text-align: center; }
+
+    .stat-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 52px;
+      color: var(--orange);
+      line-height: 1;
+      letter-spacing: 1px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .section {
+      padding: 100px 60px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--orange);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 6vw, 72px);
+      line-height: 1;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+    }
+
+    .section-subtitle {
+      font-size: 17px;
+      color: var(--text-secondary);
+      max-width: 480px;
+      line-height: 1.6;
+      margin-bottom: 60px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .step {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      transition: border-color 0.2s;
+    }
+
+    .step:hover { border-color: var(--border-light); }
+
+    .step-number {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 48px;
+      color: var(--orange);
+      line-height: 1;
+      margin-bottom: 16px;
+      opacity: 0.7;
+    }
+
+    .step-title {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .step-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── FEATURES ── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .feature {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: all 0.2s;
+    }
+
+    .feature:hover {
+      border-color: var(--orange);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+
+    .feature-title {
+      font-size: 17px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .feature-desc {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .feature-tag {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 3px 9px;
+      border-radius: 20px;
+    }
+
+    .tag-free { background: #22C55E18; color: var(--green); }
+    .tag-premium { background: var(--orange-dim); color: var(--orange); }
+
+    /* ── PRICING ── */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      max-width: 720px;
+    }
+
+    .pricing-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px;
+      position: relative;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--orange);
+      background: linear-gradient(135deg, #FF5C000A, var(--card));
+    }
+
+    .pricing-card.featured::before {
+      content: 'MOST POPULAR';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--orange);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .pricing-tier {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+
+    .pricing-price {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 60px;
+      line-height: 1;
+      letter-spacing: 1px;
+      margin-bottom: 4px;
+    }
+
+    .pricing-price sup {
+      font-size: 28px;
+      vertical-align: super;
+    }
+
+    .pricing-period {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 28px;
+    }
+
+    .pricing-features li {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .pricing-features li:last-child { border-bottom: none; }
+
+    .pricing-features li .check { color: var(--green); font-size: 14px; }
+    .pricing-features li .cross { color: var(--text-muted); font-size: 14px; }
+    .pricing-features li.active { color: var(--text); }
+
+    .btn-pricing {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      padding: 13px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      transition: all 0.2s;
+    }
+
+    .btn-pricing.free {
+      border: 1px solid var(--border-light);
+      color: var(--text-secondary);
+    }
+
+    .btn-pricing.free:hover {
+      border-color: var(--text-muted);
+      color: var(--text);
+    }
+
+    .btn-pricing.premium {
+      background: var(--orange);
+      color: white;
+      box-shadow: 0 6px 20px #FF5C0033;
+    }
+
+    .btn-pricing.premium:hover {
+      background: var(--orange-light);
+      transform: translateY(-1px);
+    }
+
+    /* ── RETAILERS ── */
+    .retailers {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .retailer-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .retailer-dot-lg {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: gap;
+      gap: 20px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 13px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      nav { padding: 14px 24px; }
+      .nav-links { display: none; }
+      .section { padding: 60px 24px; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      footer { padding: 30px 24px; flex-direction: column; align-items: flex-start; }
+      .stats { gap: 32px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-icon">🦅</div>
+      <span class="nav-logo-text">Price<span>Hawk</span></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#how-it-works">How it works</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="#" class="nav-cta">Add to Chrome — Free</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">🦅 Free Chrome Extension</div>
+    <h1 class="hero-title">Stop<span>Overpaying.</span></h1>
+    <p class="hero-subtitle">PriceHawk instantly compares prices across Amazon, eBay, and Walmart the moment you land on a product page. Find the best deal in seconds, not minutes.</p>
+    <div class="hero-buttons">
+      <a href="#" class="btn-primary">Add to Chrome — It's Free</a>
+      <a href="pricing.html" class="btn-secondary">View Pricing →</a>
+    </div>
+
+    <!-- Mock Extension UI -->
+    <div class="hero-visual">
+      <div class="visual-header">
+        <div class="visual-logo">🦅 Price<span>Hawk</span></div>
+        <span style="font-size:10px;color:#444455;text-transform:uppercase;letter-spacing:1px;">Price Comparison</span>
+      </div>
+      <div class="visual-product">
+        <div class="visual-thumb">🎧</div>
+        <div>
+          <div class="visual-product-name">Sony WH-1000XM5 Wireless Headphones</div>
+          <div class="visual-product-meta">Amazon · $349.99</div>
+        </div>
+      </div>
+      <div class="visual-results">
+        <div class="visual-label">Compare Prices</div>
+        <div class="visual-card best">
+          <div class="visual-retailer">
+            <div class="visual-dot ebay"></div>
+            <span class="visual-retailer-name">eBay</span>
+            <span class="visual-badge">🏆 Best Deal</span>
+          </div>
+          <span class="visual-price">$279.99</span>
+        </div>
+        <div class="visual-card">
+          <div class="visual-retailer">
+            <div class="visual-dot walmart"></div>
+            <span class="visual-retailer-name">Walmart</span>
+          </div>
+          <span class="visual-price">$319.00</span>
+        </div>
+        <div class="visual-card">
+          <div class="visual-retailer">
+            <div class="visual-dot amazon"></div>
+            <span class="visual-retailer-name">Amazon</span>
+          </div>
+          <span class="visual-price">$349.99</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-number">3</div>
+      <div class="stat-label">Retailers Compared</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">2sec</div>
+      <div class="stat-label">Average Comparison Time</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">$0</div>
+      <div class="stat-label">Cost to Use Free Tier</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">$4</div>
+      <div class="stat-label">Premium Per Month</div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" id="how-it-works">
+    <div class="section-label">How it works</div>
+    <h2 class="section-title">Three steps.<br>Best price.</h2>
+    <p class="section-subtitle">No setup, no accounts required to start. Just install and shop smarter.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">01</div>
+        <div class="step-title">Browse normally</div>
+        <p class="step-desc">Shop on Amazon, eBay, or Walmart like you always do. PriceHawk runs quietly in the background.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">02</div>
+        <div class="step-title">Click the icon</div>
+        <p class="step-desc">When you find a product you want, click the PriceHawk icon in your toolbar. Takes one second.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">03</div>
+        <div class="step-title">See the best price</div>
+        <p class="step-desc">A clean popup shows the same product across all three retailers, sorted cheapest to most expensive. Click and buy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section" id="features" style="padding-top:0;">
+    <div class="section-label">Features</div>
+    <h2 class="section-title">Everything you<br>need to save.</h2>
+    <p class="section-subtitle">Free features that work for casual shoppers. Premium features for people who shop seriously.</p>
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-title">Instant Price Comparison</div>
+        <p class="feature-desc">Compare prices across Amazon, eBay, and Walmart in under 2 seconds. Includes shipping costs and ratings.</p>
+        <span class="feature-tag tag-free">Free</span>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔗</div>
+        <div class="feature-title">Direct Links</div>
+        <p class="feature-desc">One click takes you straight to the product on any retailer. No searching, no copy-pasting.</p>
+        <span class="feature-tag tag-free">Free</span>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">⭐</div>
+        <div class="feature-title">Ratings & Reviews</div>
+        <p class="feature-desc">See star ratings and review counts for each retailer so you can balance price with quality.</p>
+        <span class="feature-tag tag-free">Free</span>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📈</div>
+        <div class="feature-title">Price History Charts</div>
+        <p class="feature-desc">See how a product's price has changed over time. Know if a "sale" is actually a sale before you buy.</p>
+        <span class="feature-tag tag-premium">Premium</span>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔔</div>
+        <div class="feature-title">Price Drop Alerts</div>
+        <p class="feature-desc">Set a target price on any product and get notified the moment it drops to your price. Never miss a deal.</p>
+        <span class="feature-tag tag-premium">Premium</span>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🏪</div>
+        <div class="feature-title">More Retailers</div>
+        <p class="feature-desc">Premium will unlock BestBuy, Target, Newegg, and AliExpress alongside the core three. Coming soon.</p>
+        <span class="feature-tag tag-premium">Premium</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUPPORTED RETAILERS -->
+  <section class="section" style="padding-top:0;">
+    <div class="section-label">Supported Retailers</div>
+    <h2 class="section-title">Where we look<br>for your deals.</h2>
+    <p class="section-subtitle" style="margin-bottom:32px;">Free tier covers the big three. Premium expands to six retailers.</p>
+    <div class="retailers">
+      <div class="retailer-pill">
+        <div class="retailer-dot-lg" style="background:#FF9900;"></div>
+        Amazon
+      </div>
+      <div class="retailer-pill">
+        <div class="retailer-dot-lg" style="background:#E53238;"></div>
+        eBay
+      </div>
+      <div class="retailer-pill">
+        <div class="retailer-dot-lg" style="background:#0071CE;"></div>
+        Walmart
+      </div>
+      <div class="retailer-pill" style="opacity:0.45;">
+        <div class="retailer-dot-lg" style="background:#0046BE;"></div>
+        BestBuy <span style="font-size:10px;color:#FF5C00;margin-left:4px;">Coming Soon</span>
+      </div>
+      <div class="retailer-pill" style="opacity:0.45;">
+        <div class="retailer-dot-lg" style="background:#CC0000;"></div>
+        Target <span style="font-size:10px;color:#FF5C00;margin-left:4px;">Coming Soon</span>
+      </div>
+      <div class="retailer-pill" style="opacity:0.45;">
+        <div class="retailer-dot-lg" style="background:#FF6600;"></div>
+        Newegg <span style="font-size:10px;color:#FF5C00;margin-left:4px;">Coming Soon</span>
+      </div>
+      <div class="retailer-pill" style="opacity:0.45;">
+        <div class="retailer-dot-lg" style="background:#E8192C;"></div>
+        AliExpress <span style="font-size:10px;color:#FF5C00;margin-left:4px;">Coming Soon</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING PREVIEW -->
+  <section class="section" style="padding-top:0;">
+    <div class="section-label">Pricing</div>
+    <h2 class="section-title">Simple, honest<br>pricing.</h2>
+    <p class="section-subtitle" style="margin-bottom:40px;">Start free. Upgrade when you need more.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-tier">Free</div>
+        <div class="pricing-price"><sup>$</sup>0</div>
+        <div class="pricing-period">forever</div>
+        <ul class="pricing-features">
+          <li class="active"><span class="check">✓</span> 5 comparisons per day</li>
+          <li class="active"><span class="check">✓</span> Amazon, eBay, Walmart</li>
+          <li class="active"><span class="check">✓</span> Price, shipping & ratings</li>
+          <li><span class="cross">✗</span> Price history charts</li>
+          <li><span class="cross">✗</span> Price drop alerts</li>
+          <li><span class="cross">✗</span> More retailers</li>
+        </ul>
+        <a href="#" class="btn-pricing free">Add to Chrome</a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-tier">Premium</div>
+        <div class="pricing-price"><sup>$</sup>4</div>
+        <div class="pricing-period">per month</div>
+        <ul class="pricing-features">
+          <li class="active"><span class="check">✓</span> Unlimited comparisons</li>
+          <li class="active"><span class="check">✓</span> All 7 retailers (coming soon)</li>
+          <li class="active"><span class="check">✓</span> Price, shipping & ratings</li>
+          <li class="active"><span class="check">✓</span> Price history charts</li>
+          <li class="active"><span class="check">✓</span> Price drop alerts</li>
+          <li class="active"><span class="check">✓</span> No upgrade prompts</li>
+        </ul>
+        <a href="pricing.html" class="btn-pricing premium">Get Premium — $4/mo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="nav-logo">
+      <div class="nav-logo-icon" style="width:26px;height:26px;font-size:14px;">🦅</div>
+      <span class="nav-logo-text" style="font-size:18px;">Price<span style="color:var(--orange);">Hawk</span></span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="pricing.html">Pricing</a></li>
+      <li><a href="terms.html">Terms of Service</a></li>
+      <li><a href="privacy.html">Privacy Policy</a></li>
+    </ul>
+    <span class="footer-copy">© 2026 PriceHawk. All rights reserved.</span>
+  </footer>
+
+</body>
+</html>
