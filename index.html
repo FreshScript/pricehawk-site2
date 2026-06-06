@@ -19,13 +19,13 @@
       --green: #22C55E;
     }
     html { scroll-behavior: smooth; }
-    body { background: var(--black); color: var(--text); font-family: 'Cabinet Grotesk', sans-serif; overflow-x: hidden; }
+    body { background: var(--black); color: var(--text); font-family: 'Inter', system-ui, -apple-system, sans-serif; overflow-x: hidden; }
 
     /* NAV */
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 18px 60px; background: rgba(8,8,9,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
     .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
     .nav-logo-icon { width: 32px; height: 32px; background: var(--orange); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 17px; box-shadow: 0 0 20px #FF5C0044; }
-    .nav-logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1px; color: var(--text); }
+    .nav-logo-text { font-family: 'Inter', system-ui, sans-serif; font-weight: 800; letter-spacing: -.5px; font-size: 22px; letter-spacing: 1px; color: var(--text); }
     .nav-logo-text span { color: var(--orange); }
     .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
     .nav-links a { text-decoration: none; color: var(--text-secondary); font-size: 14px; font-weight: 500; transition: color 0.2s; }
@@ -59,7 +59,7 @@
     .hero { min-height: 90vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 40px 80px; position: relative; overflow: hidden; }
     .hero::before { content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 800px; height: 800px; background: radial-gradient(circle, #FF5C0018 0%, transparent 70%); pointer-events: none; }
     .hero-badge { display: inline-flex; align-items: center; gap: 7px; background: var(--orange-dim); border: 1px solid #FF5C0030; color: var(--orange); font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 7px 16px; border-radius: 20px; margin-bottom: 24px; animation: fadeUp 0.6s ease backwards; }
-    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(64px, 11vw, 130px); line-height: 0.92; letter-spacing: 2px; color: var(--text); margin-bottom: 24px; animation: fadeUp 0.6s ease 0.1s backwards; }
+    .hero-title { font-family: 'Inter', system-ui, sans-serif; font-weight: 800; letter-spacing: -.5px; font-size: clamp(64px, 11vw, 130px); line-height: 0.92; letter-spacing: 2px; color: var(--text); margin-bottom: 24px; animation: fadeUp 0.6s ease 0.1s backwards; }
     .hero-title span { color: var(--orange); display: block; }
     .hero-subtitle { font-size: clamp(15px, 2vw, 19px); color: var(--text-secondary); max-width: 580px; line-height: 1.6; margin-bottom: 16px; font-weight: 400; animation: fadeUp 0.6s ease 0.2s backwards; }
 
@@ -87,7 +87,7 @@
     /* MOCK UI */
     .hero-visual { width: 100%; max-width: 400px; background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px #FF5C0015; animation: fadeUp 0.6s ease 0.4s backwards; }
     .visual-header { background: #0F0F12; padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-    .visual-logo { display: flex; align-items: center; gap: 8px; font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 0.5px; }
+    .visual-logo { display: flex; align-items: center; gap: 8px; font-family: 'Inter', system-ui, sans-serif; font-weight: 800; letter-spacing: -.5px; font-size: 16px; letter-spacing: 0.5px; }
     .visual-logo span { color: var(--orange); }
     .visual-product { padding: 12px 16px; background: var(--card); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
     .visual-thumb { width: 44px; height: 44px; background: #1A1A22; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
@@ -104,26 +104,26 @@
     .visual-dot.ebay { background: #E53238; }
     .visual-dot.walmart { background: #0071CE; }
     .visual-retailer-name { font-size: 13px; font-weight: 700; }
-    .visual-price { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 0.5px; }
+    .visual-price { font-family: 'Inter', system-ui, sans-serif; font-weight: 800; letter-spacing: -.5px; font-size: 20px; letter-spacing: 0.5px; }
     .visual-badge { font-size: 9px; font-weight: 700; background: #FF5C0020; color: var(--orange); padding: 2px 7px; border-radius: 20px; margin-left: 6px; }
 
     /* STATS */
     .stats { display: flex; justify-content: center; gap: 60px; padding: 60px 40px; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); flex-wrap: wrap; }
     .stat { text-align: center; }
-    .stat-number { font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: var(--orange); line-height: 1; letter-spacing: 1px; }
+    .stat-number { font-family: 'Inter', system-ui, sans-serif; font-weight: 800; letter-spacing: -.5px; font-size: 52px; color: var(--orange); line-height: 1; letter-spacing: 1px; }
     .stat-label { font-size: 13px; color: var(--text-secondary); margin-top: 4px; font-weight: 500; }
 
     /* SECTIONS */
     .section { padding: 100px 60px; max-width: 1100px; margin: 0 auto; }
     .section-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--orange); margin-bottom: 16px; }
-    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 6vw, 72px); line-height: 1; letter-spacing: 1px; margin-bottom: 16px; }
+    .section-title { font-family: 'Inter', system-ui, sans-serif; font-weight: 800; letter-spacing: -.5px; font-size: clamp(40px, 6vw, 72px); line-height: 1; letter-spacing: 1px; margin-bottom: 16px; }
     .section-subtitle { font-size: 17px; color: var(--text-secondary); max-width: 480px; line-height: 1.6; margin-bottom: 60px; }
 
     /* HOW IT WORKS */
     .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
     .step { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 32px; transition: border-color 0.2s; }
     .step:hover { border-color: var(--border-light); }
-    .step-number { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--orange); line-height: 1; margin-bottom: 16px; opacity: 0.7; }
+    .step-number { font-family: 'Inter', system-ui, sans-serif; font-weight: 800; letter-spacing: -.5px; font-size: 48px; color: var(--orange); line-height: 1; margin-bottom: 16px; opacity: 0.7; }
     .step-title { font-size: 18px; font-weight: 800; margin-bottom: 10px; }
     .step-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
 
@@ -144,7 +144,7 @@
     .pricing-card.featured { border-color: var(--orange); background: linear-gradient(135deg, #FF5C000A, var(--card)); }
     .pricing-card.featured::before { content: 'MOST POPULAR'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--orange); color: white; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; padding: 4px 14px; border-radius: 20px; white-space: nowrap; }
     .pricing-tier { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-secondary); margin-bottom: 16px; }
-    .pricing-price { font-family: 'Bebas Neue', sans-serif; font-size: 60px; line-height: 1; letter-spacing: 1px; margin-bottom: 4px; }
+    .pricing-price { font-family: 'Inter', system-ui, sans-serif; font-weight: 800; letter-spacing: -.5px; font-size: 60px; line-height: 1; letter-spacing: 1px; margin-bottom: 4px; }
     .pricing-price sup { font-size: 28px; vertical-align: super; }
     .pricing-period { font-size: 13px; color: var(--text-secondary); margin-bottom: 28px; }
     .pricing-features { list-style: none; margin-bottom: 28px; }
@@ -202,7 +202,7 @@
   <section class="hero">
     <div class="hero-badge">🦅 Chrome Browser Extension — Digital Software</div>
     <h1 class="hero-title">Stop<span>Overpaying.</span></h1>
-    <p class="hero-subtitle">PriceHawk is a digital browser extension that instantly compares prices across Amazon, eBay, and Walmart the moment you land on a product page. Install once, save every time you shop.</p>
+    <p class="hero-subtitle">PriceHawk is a digital browser extension that instantly compares prices across Amazon and eBay the moment you land on a product page. Walmart coming soon. Install once, save every time you shop.</p>
 
     <div class="digital-callout">
       <span class="digital-callout-icon">💻</span>
@@ -276,7 +276,7 @@
       <div class="step">
         <div class="step-number">02</div>
         <div class="step-title">Browse normally</div>
-        <p class="step-desc">Shop on Amazon, eBay, or Walmart like you always do. Click the PriceHawk icon when you find something you want.</p>
+        <p class="step-desc">Shop on Amazon or eBay like you always do. Click the PriceHawk icon when you find something you want.</p>
       </div>
       <div class="step">
         <div class="step-number">03</div>
@@ -295,7 +295,7 @@
       <div class="feature">
         <div class="feature-icon">⚡</div>
         <div class="feature-title">Instant Price Comparison</div>
-        <p class="feature-desc">Compare prices across Amazon, eBay, and Walmart in under 2 seconds. Includes shipping costs and ratings.</p>
+        <p class="feature-desc">Compare prices across Amazon and eBay in under 2 seconds. Walmart coming soon. Includes shipping costs and ratings.</p>
         <span class="feature-tag tag-free">Free</span>
       </div>
       <div class="feature">
@@ -339,7 +339,7 @@
     <div class="retailers">
       <div class="retailer-pill"><div class="retailer-dot-lg" style="background:#FF9900;"></div>Amazon</div>
       <div class="retailer-pill"><div class="retailer-dot-lg" style="background:#E53238;"></div>eBay</div>
-      <div class="retailer-pill"><div class="retailer-dot-lg" style="background:#0071CE;"></div>Walmart</div>
+      <div class="retailer-pill" style="opacity:0.45;"><div class="retailer-dot-lg" style="background:#0071CE;"></div>Walmart <span style="font-size:10px;color:#FF5C00;margin-left:4px;">Coming Soon</span></div>
       <div class="retailer-pill" style="opacity:0.45;"><div class="retailer-dot-lg" style="background:#0046BE;"></div>BestBuy <span style="font-size:10px;color:#FF5C00;margin-left:4px;">Coming Soon</span></div>
       <div class="retailer-pill" style="opacity:0.45;"><div class="retailer-dot-lg" style="background:#CC0000;"></div>Target <span style="font-size:10px;color:#FF5C00;margin-left:4px;">Coming Soon</span></div>
       <div class="retailer-pill" style="opacity:0.45;"><div class="retailer-dot-lg" style="background:#FF6600;"></div>Newegg <span style="font-size:10px;color:#FF5C00;margin-left:4px;">Coming Soon</span></div>
@@ -359,7 +359,7 @@
         <div class="pricing-period">forever</div>
         <ul class="pricing-features">
           <li class="active"><span class="check">✓</span> 5 comparisons per day</li>
-          <li class="active"><span class="check">✓</span> Amazon, eBay, Walmart</li>
+          <li class="active"><span class="check">✓</span> Amazon &amp; eBay</li>
           <li class="active"><span class="check">✓</span> Price, shipping & ratings</li>
           <li><span class="cross">✗</span> Price history charts</li>
           <li><span class="cross">✗</span> Price drop alerts</li>

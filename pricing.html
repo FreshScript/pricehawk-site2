@@ -7,15 +7,16 @@
   <meta name="description" content="PriceHawk is a digital browser extension. Free tier available. Premium subscription at $4/month with unlimited comparisons, price history and alerts.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23FF5C00'/><text y='78' x='50' text-anchor='middle' font-size='65'>🦅</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabinet+Grotesk:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     :root{--orange:#FF5C00;--orange-light:#FF7A2E;--orange-dim:#FF5C0015;--black:#080809;--card:#141417;--border:#1E1E24;--border-light:#2A2A32;--text:#F2F2F5;--text-secondary:#888899;--text-muted:#444455;--green:#22C55E}
-    body{background:var(--black);color:var(--text);font-family:'Cabinet Grotesk',sans-serif}
+    body{background:var(--black);color:var(--text);font-family:'Inter',system-ui,-apple-system,sans-serif}
     nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 60px;background:rgba(8,8,9,0.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
     .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
     .nav-logo-icon{width:32px;height:32px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px}
-    .nav-logo-text{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:var(--text)}
+    .nav-logo-text{font-family:'Inter',system-ui,sans-serif;font-weight:800;letter-spacing:-.5px;font-size:22px;color:var(--text)}
     .nav-logo-text span{color:var(--orange)}
     .nav-back{color:var(--text-secondary);text-decoration:none;font-size:14px;font-weight:500}
     .product-banner{background:#0F0F12;border-bottom:1px solid var(--border);padding:10px 60px;display:flex;align-items:center;justify-content:center;gap:32px;margin-top:69px;flex-wrap:wrap}
@@ -23,7 +24,7 @@
     .product-banner-item .dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0}
     .hero{padding:80px 40px 60px;text-align:center}
     .hero-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--orange);margin-bottom:16px}
-    h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,8vw,96px);line-height:1;letter-spacing:1px;margin-bottom:16px}
+    h1{font-family:'Inter',system-ui,sans-serif;font-weight:800;letter-spacing:-.5px;font-size:clamp(52px,8vw,96px);line-height:1;letter-spacing:1px;margin-bottom:16px}
     .hero-subtitle{font-size:17px;color:var(--text-secondary);max-width:480px;margin:0 auto 16px;line-height:1.6}
     .digital-tag{display:inline-flex;align-items:center;gap:8px;background:#22C55E10;border:1px solid #22C55E25;border-radius:8px;padding:8px 16px;margin-bottom:48px;font-size:13px;color:var(--green);font-weight:600}
     .pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:740px;margin:0 auto 80px;padding:0 24px}
@@ -31,7 +32,7 @@
     .pricing-card.featured{border-color:var(--orange);background:linear-gradient(135deg,#FF5C000A,var(--card))}
     .pricing-card.featured::before{content:'MOST POPULAR';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--orange);color:white;font-size:10px;font-weight:700;letter-spacing:1.5px;padding:4px 14px;border-radius:20px;white-space:nowrap}
     .pricing-tier{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-secondary);margin-bottom:16px}
-    .pricing-price{font-family:'Bebas Neue',sans-serif;font-size:72px;line-height:1;letter-spacing:1px;margin-bottom:4px}
+    .pricing-price{font-family:'Inter',system-ui,sans-serif;font-weight:800;letter-spacing:-.5px;font-size:72px;line-height:1;letter-spacing:1px;margin-bottom:4px}
     .pricing-price sup{font-size:32px;vertical-align:super}
     .pricing-period{font-size:13px;color:var(--text-secondary);margin-bottom:32px}
     .pricing-features{list-style:none;margin-bottom:32px}
@@ -46,7 +47,7 @@
     .btn-pricing.premium{background:var(--orange);color:white;box-shadow:0 6px 20px #FF5C0033}
     .btn-pricing.premium:hover{background:var(--orange-light);transform:translateY(-1px)}
     .faq{max-width:680px;margin:0 auto;padding:0 24px 100px}
-    .faq-title{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:1px;text-align:center;margin-bottom:40px}
+    .faq-title{font-family:'Inter',system-ui,sans-serif;font-weight:800;letter-spacing:-.5px;font-size:48px;letter-spacing:1px;text-align:center;margin-bottom:40px}
     .faq-item{border-bottom:1px solid var(--border);padding:24px 0}
     .faq-q{font-size:16px;font-weight:700;margin-bottom:10px}
     .faq-a{font-size:14px;color:var(--text-secondary);line-height:1.7}
@@ -86,7 +87,7 @@
       <div class="pricing-price"><sup>$</sup>0</div>
       <div class="pricing-period">forever, no credit card needed</div>
       <ul class="pricing-features">
-        <li class="active"><span class="check">✓</span> 5 price comparisons per day</li>
+        <li class="active"><span class="check">✓</span> 3 price comparisons per day</li>
         <li class="active"><span class="check">✓</span> Amazon, eBay & Walmart</li>
         <li class="active"><span class="check">✓</span> Price & shipping info</li>
         <li class="active"><span class="check">✓</span> Star ratings & review counts</li>
@@ -137,11 +138,11 @@
     </div>
     <div class="faq-item">
       <div class="faq-q">What is your refund policy?</div>
-      <div class="faq-a">We offer a 7-day money-back guarantee on your first subscription payment. If you're not satisfied within 7 days, email support@pricehawk.app for a full refund. See our full <a href="refund.html">Refund Policy</a>.</div>
+      <div class="faq-a">We offer a 7-day money-back guarantee on your first subscription payment. If you're not satisfied within 7 days, email famajila3@gmail.com for a full refund. See our full <a href="refund.html">Refund Policy</a>.</div>
     </div>
     <div class="faq-item">
-      <div class="faq-q">How does the 5 searches per day limit work?</div>
-      <div class="faq-a">Free users can run 5 price comparisons per day. The count resets at midnight. Upgrading to Premium removes the limit entirely.</div>
+      <div class="faq-q">How does the 3 searches per day limit work?</div>
+      <div class="faq-a">Free users can run 3 price comparisons per day. The count resets at midnight. Upgrading to Premium removes the limit entirely.</div>
     </div>
   </div>
 
